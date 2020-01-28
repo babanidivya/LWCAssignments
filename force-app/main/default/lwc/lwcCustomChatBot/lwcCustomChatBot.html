@@ -1,0 +1,24 @@
+<template>
+    <lightning-card title="Einstien." icon-name="custom:custom63">  
+        <div id="header"  style="background-color: orangered; height: 100px; width: 100%;">
+            <p class="headerText">My Einstien</p>
+        </div>
+        <div class="row" style="margin-top: 100px;">
+            <div class="chatwindow">
+                    <div class="chatHeader" onclick={handleshowchatwindowbody}>
+                        <p class="chatTitle">Einstien Assignment</p>
+                    </div>
+                    <div class="chatwindowbody hideChat">
+                        <div class="chatBody" lwc:dom="manual">
+                            <!--<p class="reply">How may I help you?</p>-->
+                        </div>
+                        <div class="chatFooter">
+                            <lightning-input type="text" style="height: 50px" value={searchKey} placeholder="Search Here" onkeyup={handlereply}></lightning-input>  
+                        <!-- <input type="text" value="" id="txtchat" style="height: 50px" placeholder="Enter course name to find details!" onkeyup="reply();"> -->
+                        </div>
+                    </div>
+            </div>
+        </div>
+        
+    </lightning-card>
+</template>

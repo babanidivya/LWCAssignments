@@ -1,0 +1,25 @@
+<apex:page standardController="Contact" title="Contact Edit">
+  <apex:form >
+      <apex:sectionHeader title="Contact Edit" subtitle="{!Contact.Salutation} {!Contact.Name}"/>
+      <p>Contacts not associated with accounts are private and cannot be viewed by other users or included in reports.</p>
+      <apex:pageBlock title="Contact Edit" mode="edit">
+          <apex:pageBlockButtons >
+              <apex:commandButton action="{!save}" value="Save"/> 
+              <apex:commandButton action="{!cancel}" value="Cancel"/> 
+          </apex:pageBlockButtons>
+          <apex:pageBlockSection title="Contact Information">
+              <apex:inputField value="{!Contact.Salutation}"/>
+              <apex:inputField value="{!Contact.Title}"/>
+              <apex:inputField value="{!Contact.FirstName}"/>
+              <apex:inputField value="{!Contact.Designation__c}"/>
+              <apex:inputField value="{!Contact.LastName}"/>
+              <apex:inputField value="{!Contact.Salary__c}"/>
+              <apex:inputField value="{!Contact.AccountId}"/>
+              <apex:outputLabel ></apex:outputLabel>
+              <apex:inputField value="{!Contact.isMarried__c}"/>
+              <apex:outputLabel ></apex:outputLabel>
+              <apex:inputField value="{!Contact.Preferred_Location__c}"/>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

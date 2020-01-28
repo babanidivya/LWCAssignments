@@ -1,0 +1,3 @@
+<design:component>
+    <design:attribute name="attachmentId" label="Attachment Id"/>
+</design:component>

@@ -1,0 +1,394 @@
+<apex:page sidebar="false" showHeader="false" controller="OrgDetailController">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        .accordion:before {
+            content: '\002B';
+            color: #777;
+            font-weight: bold;
+            margin-right: 5px;
+            font-size: x-large;
+        }
+        
+        .panel {
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  width:190px;
+}
+        .active:before {
+          content: "\2212";
+          margin-right: 5px;
+        }
+    </style>
+    <script>
+        $j = jQuery.noConflict();
+
+        function showMainTab(obj) {
+            var mainTabId = obj.id;
+            var mainTabContentDivId = mainTabId.substr(6);
+            $j(".mainTab").removeClass("slds-is-active");
+            $j("#" + mainTabId).addClass("slds-is-active");
+            $j(".mainTabContent").addClass("slds-hide");
+            $j(".mainTabContent").removeClass("slds-show");
+            $j("#" + mainTabContentDivId).removeClass("slds-hide");
+            $j("#" + mainTabContentDivId).addClass("slds-show");
+        }
+
+        function showSecondTab(obj) {
+            var secondTabId = obj.id;
+            var secondTabContentDivId = secondTabId.substr(6);
+            $j(".secondTab").removeClass("slds-is-active");
+            $j("#" + secondTabId).addClass("slds-is-active");
+            $j(".secondTabContent").addClass("slds-hide");
+            $j(".secondTabContent").removeClass("slds-show");
+            $j("#" + secondTabContentDivId).removeClass("slds-hide");
+            $j("#" + secondTabContentDivId).removeClass("slds-show");
+        }
+                /*function showHideAccordionContent(obj) {
+            //$j(".slds-is-open").removeClass("slds-is-open");
+            if ($j(obj).parent().parent().parent().parent().parent().parent().parent()
+                .parent().hasClass("slds-is-open")) {
+                $j(".slds-is-open").removeClass("slds-is-open");
+            } else {
+                $j(obj).parent().parent().parent().parent().parent().parent().parent()
+                    .parent().addClass("slds-is-open");
+            }
+
+        }*/
+        function showHideAccordionContent(obj) {
+            //$j(".slds-is-open").removeClass("slds-is-open");
+            (obj).classList.toggle("active");
+            //(obj).closest("td").css({"display": "block"});
+            var buttonId = obj.id;
+            
+            console.log(buttonId);
+            var divId = buttonId.concat('div');
+            console.log(divId);
+            $j("#" + divId).closest("td").css({"display": "table-cell"});
+            var panel=document.getElementById(divId);  
+            console.log(panel);
+            if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+        }
+
+    </script>
+    <apex:slds />
+    <apex:form >
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-account" title="Account">
+                                    <svg class="slds-icon slds-page-header__icon" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS,'/assets/icons/standard-sprite/svg/symbols.svg#account')}" />
+                                    </svg>
+                                    <span class="slds-assistive-text">Account</span>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span class="slds-page-header__title slds-truncate" title="Account">Account</span>
+                                    </h1>
+                                </div>
+                            </div>
+                            <p class="slds-page-header__name-meta">Account Name</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="margin: 30px;">
+            <div class="slds-form slds-form_stacked" role="list">
+                <div class="slds-grid slds-gutters_small">
+                    <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                            <span class="slds-form-element__label">
+                                    Name
+                                </span>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    {!account.name}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                            <span class="slds-form-element__label">
+                                    Phone
+                                </span>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    {!account.phone}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-form slds-form_stacked" role="list">
+                <div class="slds-grid slds-gutters_small">
+                    <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                            <span class="slds-form-element__label">
+                                    Billing Address
+                                </span>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    {!account.BillingStreet},{!account.BillingCity},{!account.BillingState},{!account.BillingCountry}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-has-flexi-truncate slds-grid" role="listitem">
+                        <div class="slds-form-element slds-form-element_edit slds-form-element_readonly slds-hint-parent">
+                            <span class="slds-form-element__label">
+                                    Shipping Address
+                                </span>
+                            <div class="slds-form-element__control">
+                                <div class="slds-form-element__static">
+                                    {!account.ShippingStreet},{!account.ShippingCity},{!account.ShippingState},{!account.ShippingCountry}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-tabs_default">
+            <ul class="slds-tabs_default__nav" role="tablist">
+                <apex:repeat value="{!AccountTabs}" var="accObjList">
+                    <li class="slds-tabs_default__item mainTab" title="Item One" role="presentation"
+                    id="label-tab-default-{!(SUBSTITUTE(accObjList, " ", "-"))}" onclick="showMainTab(this)">
+                        <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="0"
+                        aria-selected="false" aria-controls="tab-default-{!accObjList}" id="tab-default-{!(SUBSTITUTE(accObjList, " ", "-"))}__item">{!accObjList}</a>
+                    </li>   
+                </apex:repeat>
+            </ul>
+            <apex:repeat value="{!AccountTabs}" var="accObjList">
+                <div id="tab-default-{!(SUBSTITUTE(accObjList, " ", "-"))}" class="slds-tabs_default__content slds-hide mainTabContent"
+                role="tabpanel" aria-labelledby="tab-default-{!(SUBSTITUTE(accObjList, " ", "-"))}__item">
+                    <ul class="slds-accordion">
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                            <thead>
+                                <apex:variable value="0" var="hideFirstCol"/>
+                                <apex:repeat value="{!IF(CONTAINS(accChildObjFieldsString,SUBSTITUTE(accObjList, ' ', '-')),accChildObjFields[SUBSTITUTE(accObjList, ' ', '-')],false)}" var="childFields">
+                                    <th class="slds-text-title_caps" scope="col" style="{!IF( hideFirstCol= '0' ,'width:200px;',false)}">
+                                        <div class="slds-truncate" title="Opportunity Name" style="{!IF( hideFirstCol= '0' ,'display:none;',false)}">{!childFields}</div>
+                                    </th>
+                                    <apex:variable value="{!hideFirstCol}+1" var="hideFirstCol"/> 
+                                </apex:repeat>                   
+                            </thead>
+                        </table>
+                        
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                            <tbody>  
+                                <apex:repeat value="{!IF(SUBSTITUTE(accObjList, ' ', '-')=='Contacts',lst_con,IF(SUBSTITUTE(accObjList, ' ', '-')=='Opportunities',lst_opp,lst_case))}" var="accObjVal">
+                                    <tr class=""> 
+                                        <apex:variable var="i" value="{!0}"/>
+                                        <apex:repeat value="{!IF(CONTAINS(accChildObjFieldsString,SUBSTITUTE(accObjList, ' ', '-')),accChildObjFields[SUBSTITUTE(accObjList, ' ', '-')],false)}" var="accObjFieldVal">
+                                            <apex:outputPanel rendered="{! IF(i == 0, true, false)}">
+                                                <td class="slds-text-title_caps" data-label="Contact Phone">
+                                                    <div class="slds-truncate" style="width:150px;">
+                                                        <h3 class="slds-accordion__summary-heading">
+                                                            <button aria-controls="accordion-details-01" id="{!SUBSTITUTE(accObjList, ' ', '-')}{!accObjVal.id}button" aria-expanded="true" class="slds-button slds-button_reset slds-accordion__summary-action accordion"
+                                                                onclick="showHideAccordionContent(this);return false;">
+                                                               
+                                                               <span class="slds-truncate" style="width:190px;" title="{!SUBSTITUTE(accObjList, ' ', '-')}{!accObjVal.id}">{!accObjVal[accObjFieldVal]}</span>
+                                                            </button>
+                                                        </h3>
+                                                    </div>
+                                                    
+                                                </td>
+                                            </apex:outputPanel>
+                                            <apex:outputPanel rendered="{! IF(i != 0, true, false)}">
+                                                <td class="slds-text-title_caps" data-label="Contact Phone"><div class="slds-truncate" style="width:150px;">{!accObjVal[accObjFieldVal]}</div></td>
+                                            </apex:outputPanel>
+                                            <apex:variable var="i" value="{!i+1}"/>
+                                        </apex:repeat>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td style="display:none;" colspan="{!i-1}">
+                                            <div class="panel" id="{!SUBSTITUTE(accObjList, ' ', '-')}{!accObjVal.id}buttondiv">
+                                               <div class="slds-tabs_scoped">
+                                        <ul class="slds-tabs_scoped__nav" role="tablist">
+                                            <li class="slds-tabs_scoped__item secondTab slds-is-active" title="Item One" role="presentation"
+                                                id="label-tab-scoped-1-{!accObjVal.id}" onclick="showSecondTab(this)">
+                                                <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="0"
+                                                    aria-selected="false" aria-controls="tab-scoped-1"
+                                                    id="tab-scoped-1__item">Item One</a>
+                                            </li>
+                                            <li class="slds-tabs_scoped__item secondTab " title="Item Two" role="presentation"
+                                                id="label-tab-scoped-2-{!accObjVal.id}" onclick="showSecondTab(this)">
+                                                <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="-1"
+                                                    aria-selected="true" aria-controls="tab-scoped-2"
+                                                    id="tab-scoped-2__item">Item Two</a>
+                                            </li>
+                                            <li class="slds-tabs_scoped__item secondTab" title="Item Three" role="presentation"
+                                                id="label-tab-scoped-3-{!accObjVal.id}" onclick="showSecondTab(this)">
+                                                <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="-1"
+                                                    aria-selected="false" aria-controls="tab-scoped-3"
+                                                    id="tab-scoped-3__item">Item Three</a>
+                                            </li>
+                                        </ul>
+                                        <div id="tab-scoped-1-{!accObjVal.id}" class="slds-tabs_scoped__content secondTabContent slds-show"
+                                            role="tabpanel" aria-labelledby="tab-scoped-1__item">Item One Content</div>
+                                        <div id="tab-scoped-2-{!accObjVal.id}" class="slds-tabs_scoped__content secondTabContent slds-hide"
+                                            role="tabpanel" aria-labelledby="tab-scoped-2__item">Item Two Content</div>
+                                        <div id="tab-scoped-3-{!accObjVal.id}" class="slds-tabs_scoped__content secondTabContent slds-hide"
+                                            role="tabpanel" aria-labelledby="tab-scoped-3__item">Item Three Content</div>
+                                    </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </apex:repeat>
+                            </tbody>
+                        </table>
+                    </ul>   
+                </div>
+            </apex:repeat>
+            <!-- <ul class="slds-tabs_default__nav" role="tablist">
+                <li class="slds-tabs_default__item slds-is-active mainTab" title="Item One" role="presentation"
+                    id="label-tab-default-1" onclick="showMainTab(this)">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="0"
+                        aria-selected="false" aria-controls="tab-default-1" id="tab-default-1__item">Contacts</a>
+                </li>
+                <li class="slds-tabs_default__item mainTab" title="Item Two" role="presentation"
+                    id="label-tab-default-2" onclick="showMainTab(this)">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1"
+                        aria-selected="true" aria-controls="tab-default-2" id="tab-default-2__item">Opportunities</a>
+                </li>
+                <li class="slds-tabs_default__item mainTab" title="Item Three" role="presentation"
+                    id="label-tab-default-3" onclick="showMainTab(this)">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1"
+                        aria-selected="false" aria-controls="tab-default-3" id="tab-default-3__item">Partners</a>
+                </li>
+                <li class="slds-tabs_default__item mainTab" title="Item Four" role="presentation"
+                    id="label-tab-default-4" onclick="showMainTab(this)">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1"
+                        aria-selected="false" aria-controls="tab-default-3" id="tab-default-3__item">Cases</a>
+                </li>
+                <li class="slds-tabs_default__item mainTab" title="Item Five" role="presentation"
+                    id="label-tab-default-5" onclick="showMainTab(this)">
+                    <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1"
+                        aria-selected="false" aria-controls="tab-default-3" id="tab-default-3__item">Open Activities</a>
+                </li>
+            </ul> -->
+            <div id="tab-default-1" class="slds-tabs_default__content slds-show mainTabContent"
+                role="tabpanel" aria-labelledby="tab-default-1__item">
+                <ul class="slds-accordion">
+                    <apex:repeat value="{!lst_con}" var="con">
+                        <li class="slds-accordion__list-item">
+                            <section class="slds-accordion__section">
+                                <div class="slds-accordion__summary">
+                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+                                                <th class="slds-text-title_caps" scope="col" style="width: 150px">
+                                                    <div class="slds-truncate" title="Opportunity Name"></div>
+                                                </th>
+                                                <th class="slds-text-title_caps" scope="col">
+                                                    <div class="slds-truncate" title="Opportunity Name">Phone</div>
+                                                </th>
+                                                <th class="slds-text-title_caps" scope="col">
+                                                    <div class="slds-truncate" title="Account Name">Designation</div>
+                                                </th>
+                                                <th class="slds-text-title_caps" scope="col">
+                                                    <div class="slds-truncate" title="Close Date">Birth Date</div>
+                                                </th>
+                                                <th class="slds-text-title_caps" scope="col">
+                                                    <div class="slds-truncate" title="Stage">Age</div>
+                                                </th>
+                                                <th class="slds-text-title_caps" scope="col">
+                                                    <div class="slds-truncate" title="Confidence">Salaray</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="slds-hint-parent slds-cell-wrap">
+                                                <th data-label="Contact Name" scope="row" width="150px">
+                                                    <div class="slds-truncate" title="Cloudhub">
+                                                        <h3 class="slds-accordion__summary-heading">
+                                                            <button aria-controls="accordion-details-01" aria-expanded="true" class="slds-button slds-button_reset slds-accordion__summary-action"
+                                                                onclick="showHideAccordionContent(this);return false;">
+                                                               <svg class="slds-accordion__summary-action-icon slds-button__icon slds-button__icon_left" aria-hidden="true">
+                                                                   <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS,'/assets/icons/utility-sprite/svg/symbols.svg#switch')}" />
+                                                               </svg>
+                                                               <span class="slds-truncate" style="width:190px;" title="Accordion summary">{!con.name}</span>
+                                                            </button>
+                                                        </h3>
+                                                    </div>
+                                                </th>
+                                                <td data-label="Contact Phone">
+                                                    <div class="slds-truncate" title="Phone" style="width:150px;">{!con.Phone__c}</div>
+                                                </td>
+                                                <td data-label="Conatct Designation">
+                                                    <div class="slds-truncate" style="width:150px;" title="Designation">{!con.Designation__c}</div>
+                                                </td>
+                                                <td data-label="Contact BirthDate">
+                                                    <div class="slds-truncate" style="width:150px;" title="BirthDate">{!con.BirthDate__c}</div>
+                                                </td>
+                                                <td data-label="Contact Age">
+                                                    <div class="slds-truncate" style="width:150px;" title="Age">{!con.Age__c}</div>
+                                                </td>
+                                                <td data-label="Contact Salary">
+                                                    <div class="slds-truncate" style="width:150px;" title="Salary">{!con.Salary__c }</div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div aria-hidden="false" class="slds-accordion__content" id="accordion-details-01">
+                                    <div class="slds-tabs_scoped">
+                                        <ul class="slds-tabs_scoped__nav" role="tablist">
+                                            <li class="slds-tabs_scoped__item secondTab slds-is-active" title="Item One" role="presentation"
+                                                id="label-tab-scoped-1-{!con.id}" onclick="showSecondTab(this)">
+                                                <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="0"
+                                                    aria-selected="false" aria-controls="tab-scoped-1"
+                                                    id="tab-scoped-1__item">Item One</a>
+                                            </li>
+                                            <li class="slds-tabs_scoped__item secondTab " title="Item Two" role="presentation"
+                                                id="label-tab-scoped-2-{!con.id}" onclick="showSecondTab(this)">
+                                                <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="-1"
+                                                    aria-selected="true" aria-controls="tab-scoped-2"
+                                                    id="tab-scoped-2__item">Item Two</a>
+                                            </li>
+                                            <li class="slds-tabs_scoped__item secondTab" title="Item Three" role="presentation"
+                                                id="label-tab-scoped-3-{!con.id}" onclick="showSecondTab(this)">
+                                                <a class="slds-tabs_scoped__link" href="javascript:void(0);" role="tab" tabindex="-1"
+                                                    aria-selected="false" aria-controls="tab-scoped-3"
+                                                    id="tab-scoped-3__item">Item Three</a>
+                                            </li>
+                                        </ul>
+                                        <div id="tab-scoped-1-{!con.id}" class="slds-tabs_scoped__content secondTabContent slds-show"
+                                            role="tabpanel" aria-labelledby="tab-scoped-1__item">Item One Content</div>
+                                        <div id="tab-scoped-2-{!con.id}" class="slds-tabs_scoped__content secondTabContent slds-hide"
+                                            role="tabpanel" aria-labelledby="tab-scoped-2__item">Item Two Content</div>
+                                        <div id="tab-scoped-3-{!con.id}" class="slds-tabs_scoped__content secondTabContent slds-hide"
+                                            role="tabpanel" aria-labelledby="tab-scoped-3__item">Item Three Content</div>
+                                    </div>
+                                </div>
+                            </section>
+                        </li>
+                    </apex:repeat>
+                </ul>
+
+            </div>
+            <div id="tab-default-2" class="slds-tabs_default__content slds-hide mainTabContent"
+                role="tabpanel" aria-labelledby="tab-default-2__item">Item Two Content</div>
+            <div id="tab-default-3" class="slds-tabs_default__content slds-hide mainTabContent"
+                role="tabpanel" aria-labelledby="tab-default-3__item">Item Three Content</div>
+        </div>
+
+
+    </apex:form>
+
+</apex:page>

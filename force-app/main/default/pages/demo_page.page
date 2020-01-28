@@ -1,0 +1,27 @@
+<apex:page controller="DemoController" id="pg">
+    <script type="text/javascript">
+        function userInput(){
+            var UInput=document.getElementById("{!$Component.pg.frm.in}").value;
+            return UInput;
+        }
+       
+    </script>
+   
+    <apex:form id="frm">
+        <apex:actionFunction name="hitMe" action="{!iWantMyJSValues}" rerender="jsvalues">
+            <apex:param name="one" value="" />
+            <apex:param name="two" value="Vijosh" />
+            <apex:param name="three" value="Keyboard" />
+           
+        </apex:actionFunction>
+       
+        <apex:outputPanel id="jsvalues">
+            <apex:panelGrid columns="2">
+                Value One:<apex:inputText id="in" value="{!valueOne}"/>
+                
+               
+<apex:commandButton value="Submit" onclick="hitMe(userInput())"/>
+         </apex:panelGrid>       
+        </apex:outputPanel>
+   </apex:form>
+</apex:page>

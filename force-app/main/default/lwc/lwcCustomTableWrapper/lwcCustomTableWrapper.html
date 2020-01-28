@@ -1,0 +1,73 @@
+<template>  
+    <lightning-card title="Accounts List Wrapper" icon-name="custom:custom63">  
+      <div class="slds-m-around_medium">   
+        <!--{accounts}-
+            {accounts.data}-->
+        <lightning-input type="search" onchange={handleKeyChange} class="slds-m-bottom_small" label="Search"  
+          value={searchKey}></lightning-input>  
+        <template if:true={accountsWrapper.data}>
+          <table  
+            class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer slds-table_fixed-layout">  
+            <thead>  
+              <tr class="slds-text-heading_label">  
+                <th scope="col">  
+                  <div class="slds-truncate" title="ID">ID</div>  
+                </th>  
+                <th scope="col">  
+                  <div class="slds-truncate" title="Name">Name</div>  
+                </th>  
+                <th scope="col">  
+                    <div class="slds-truncate" title="Phone">Phone</div>  
+                </th> 
+                <th scope="col">  
+                  <div class="slds-truncate" title="Contacts">Contacts</div>  
+              </th> 
+              </tr>  
+            </thead>  
+            <tbody>   
+              <template for:each={accountsWrapper.data} for:item="account1"> 
+                <tr key={account1.accId}>  
+                  <th scope="row">  
+                    <div class="slds-truncate" title={account1.accId}>{account1.accId}</div>  
+                  </th>  
+                  <td>  
+                    <div class="slds-truncate" title={account1.accName}>
+                      
+                      <lightning-input type="text" value={account1.accName} ></lightning-input>
+                    </div>  
+                  </td>  
+                  <td>  
+                        <div id={account1.accId} data-id={account1.accId} data-target-id={account1.accId} class="slds-truncate phone" title={account1.accPhone} >{account1.accPhone}</div>
+                       
+                        <div id={account1.accId} class="slds-col custom-popover" style="display:none">
+                          <section class="slds-popover slds-nubbin_right" role="dialog">
+                              <div class="slds-popover__body">
+                                <lightning-input type="text" label="Enter a date"></lightning-input>
+                                <lightning-input type="text" label="Enter a date"></lightning-input>
+                                <lightning-input type="text" label="Enter a date"></lightning-input>
+                              </div>
+                          </section>
+                        </div>  
+                  </td>
+                  <td>  
+                    <div class="slds-truncaoptte" id={account1.accId} onclick={handleClick} title={account1.accCon} >{account1.accCon}</div> 
+                    <div id={account1.accId} data-contactaccid={account1.accId} class="slds-col custom-popover1" if:true={account1.accCon} style="display:none">
+                      <section class="slds-popover slds-nubbin_top-left" role="dialog">
+                        <div class="slds-popover__body">
+                            <lightning-input  for:each={account1.accConList} for:item="accContact" key={accContact.Id} type="text" value={accContact.Name} data-conatctaccid={account1.accId} data-contactoldval={accContact.Name} data-contactid={accContact.Id} id={accContact.Id} onchange={handlePopOverInput}></lightning-input>
+                            <lightning-button data-contactaccid={account1.accId} onclick={updateContact} class="custom-popover-button" label="Save"></lightning-button>  
+                            <lightning-button  id={account1.accId} class="custom-popover-button custom-popover-cancel-button" label="Cancel" onclick={handlePopOverCancel}></lightning-button> 
+                          </div>
+                      </section>
+                    </div>
+                  </td>
+                </tr>  
+              </template>  
+            </tbody>  
+          </table>
+        </template>  
+      </div>  
+      <p class="slds-m-vertical_medium content">Total records: <b>{totalrecords} </b> Page <b>{currentpage}</b> of  
+        <b> {totalpages}</b></p>  
+    </lightning-card>  
+  </template>

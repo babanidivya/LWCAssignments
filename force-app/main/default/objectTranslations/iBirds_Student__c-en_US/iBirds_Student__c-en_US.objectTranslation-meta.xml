@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>iBirds Student</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>iBirds Student</value>
+    </caseValues>
+    <layouts>
+        <layout>College Student Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>School Student Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- College --></label>
+        <name>College</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- School --></label>
+        <name>School</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Email cant send without name --></errorMessage>
+        <name>Check_Email_Without_Name</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Date Of Birth can not be empty --></errorMessage>
+        <name>Empty_DOB</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Partner Name is mandatory --></errorMessage>
+        <name>Partner_Name_Mandatory</name>
+    </validationRules>
+</CustomObjectTranslation>

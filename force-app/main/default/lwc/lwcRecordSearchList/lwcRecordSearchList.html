@@ -1,0 +1,22 @@
+<template>  
+    <lightning-card title="Accounts List" icon-name="custom:custom63">  
+      <div class="slds-m-around_medium">   
+        <!--{accounts}-
+            {accounts.data}-->
+        <lightning-input type="search" onchange={handleKeyChange} class="slds-m-bottom_small" label="Search"  
+          value={searchKey}></lightning-input>  
+        <template if:true={accounts.data}> 
+          
+          <lightning-datatable
+            key-field="Id"
+            data={accounts.data}
+            columns={columns}
+            onsave={handleSave}
+            draft-values={draftValues}>
+          </lightning-datatable>  
+        </template>  
+      </div>  
+      <p class="slds-m-vertical_medium content">Total records: <b>{totalrecords} </b> Page <b>{currentpage}</b> of  
+        <b> {totalpages}</b></p>  
+    </lightning-card>  
+  </template>

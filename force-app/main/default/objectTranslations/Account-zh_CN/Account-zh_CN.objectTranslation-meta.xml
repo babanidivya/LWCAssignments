@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldSets>
+        <label><!-- Builder Company Info --></label>
+        <name>Builder_Company_Info</name>
+    </fieldSets>
+    <fieldSets>
+        <label><!-- Builder_Sales Representative --></label>
+        <name>Builder_Sales_Representative</name>
+    </fieldSets>
+    <webLinks>
+        <label><!-- Billing --></label>
+        <name>Billing</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Custom_Edit --></label>
+        <name>Custom_Edit</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Standard_Set_Demo --></label>
+        <name>Standard_Set_Demo</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Tab_View --></label>
+        <name>Tab_View</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_with_DocuSign --></label>
+        <name>dsfs__Send_with_DocuSign</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Pardot_Emails --></label>
+        <name>pi__Send_Pardot_Emails</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_Single_Pardot_Email --></label>
+        <name>pi__Send_Single_Pardot_Email</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Send_To_Prospect_Insight --></label>
+        <name>pi__Send_To_Prospect_Insight</name>
+    </webLinks>
+</CustomObjectTranslation>

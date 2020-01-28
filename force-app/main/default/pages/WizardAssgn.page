@@ -1,0 +1,373 @@
+<apex:page controller="WizardAssgnController" showHeader="false">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        .firstwizard {
+            background: whitesmoke;
+            border-radius: 17px;
+        }
+        
+        .wizardTitle {
+            border: 0px !important;
+            font-weight: bold;
+            font-size: large;
+            color: rgb(28, 142, 186);
+        }
+        
+        .wizardsCol {
+            border: 0px !important;
+        }
+        
+        .progressBar {
+            border: 0px !important;
+        }
+
+    </style>
+    <apex:slds />
+    <apex:form id="listViewFrm" rendered="true">
+        <apex:actionFunction action="{!getFieldListPage}" reRender="listViewFrm" name="changeActionPage"
+            oncomplete="renderSVG();">
+            <apex:param assignTo="{!pageName}" name="pageRef" value="" />
+            <apex:param assignTo="{!selectedParentObject}" name="objectName" value="" />
+        </apex:actionFunction>
+        <apex:outputPanel rendered="{!IF((pageName==NULL || pageName=='Page1'),true,false)}">
+            <div class="firstwizard demo-only demo-only--sizing slds-grid slds-wrap">
+                <div class="slds-size_2-of-2">
+                    <div class="wizardTitle slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">Objet Selection Page</div>
+                </div>
+                <div class="slds-size_2-of-2">
+                    <div class="fstWizardFstCol wizardsCol slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label" for="select-01">Select Label</label>
+                            <div class="slds-form-element__control">
+                                <div class="slds-select_container">
+                                    <select class="slds-select" id="selectObject">
+                                        <option value="NONE">Please Select</option>
+                                        <apex:repeat value="{!objectsList}" var="parentObject">
+                                            <option value="{!parentObject.Name}" class="{!if(parentObject.Name==selectedParentObject,'selected',"")}">{!parentObject.Label}</option>   
+                                        </apex:repeat>     
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-size_2-of-2">
+                    <div class="wizardsCol slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                        <button class="slds-button slds-button_brand" onClick="changePage('Page2');return false;">Next</button>
+                    </div>
+                </div>
+                <div class="slds-size_2-of-2">
+                    <div class="progressBar slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                        <div class="slds-progress">
+                            <ol class="slds-progress__list">
+                                <li class="slds-progress__item slds-is-active">
+                                    <button class="slds-button slds-progress__marker">
+                                        <span class="slds-assistive-text">Step 1 </span>
+                                    </button>
+                                </li>
+                                <li class="slds-progress__item">
+                                    <button class="slds-button slds-progress__marker">
+                                        <span class="slds-assistive-text">Step 2 </span>
+                                    </button>
+                                </li>
+                                <li class="slds-progress__item">
+                                    <button class="slds-button slds-progress__marker">
+                                        <span class="slds-assistive-text">Step 3 </span>
+                                    </button>
+                                </li>
+                                <li class="slds-progress__item">
+                                    <button class="slds-button slds-progress__marker">
+                                        <span class="slds-assistive-text">Step 4 </span>
+                                    </button>
+                                </li>
+                            </ol>
+                            <!--<div class="slds-progress-bar slds-progress-bar_x-small" aria-valuemin="0" aria-valuemax="100" aria-valuenow="75" role="progressbar">
+                            <span class="slds-progress-bar__value" style="width:75%">
+                              <span class="slds-assistive-text">Progress: 75%</span>
+                            </span>
+                          </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!IF(pageName=='Page2',true,false)}">
+            <div class="firstwizard demo-only demo-only--sizing slds-grid slds-wrap">
+                <div class="slds-size_4-of-4">
+                    <div>{!selectedParentObject}{!selectedFeild}</div>
+                    <c:MultiselectPicklist leftLabel="Available Fields"
+                            leftOption="{!allFeild}"
+                            rightLabel="Selected Fields"
+                            rightOption="{!selectedFeild}"
+                            size="14"
+                            width="150px"/>
+                    <div class="wizardTitle slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">Field Selection Page</div>
+                </div>
+                <div class="slds-size_1-of-4">
+                    <div class="fstWizardFstCol wizardsCol slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small"></div>
+                </div>
+                <div class="slds-size_3-of-4">
+                    <div class="fstWizardFstCol wizardsCol slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                        <div class="slds-form-element" role="group" aria-labelledby="picklist-group-label">
+                            <span id="picklist-group-label" class="slds-form-element__label slds-form-element__legend">Select Options</span>
+                            <div class="slds-form-element__control">
+                                <div class="slds-dueling-list">
+                                    <div class="slds-assistive-text" id="drag-live-region" aria-live="assertive"></div>
+                                    <div class="slds-assistive-text" id="option-drag-label">Press space bar when on an item, to move it within
+                                        the list. CMD plus left and right arrow keys,to move items between lists.
+                                    </div>
+                                    <div class="slds-dueling-list__column">
+                                        <span class="slds-form-element__label" id="label-101">First Category</span>
+                                        <div class="slds-dueling-list__options">
+                                            <ul aria-describedby="option-drag-label" aria-labelledby="label-101" aria-multiselectable="true"
+                                                class="slds-listbox slds-listbox_vertical" role="listbox">
+                                                    <li role="presentation" class="slds-listbox__item" onclick="selectFirstListItem(this)">
+                                                        <div class="first-list slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                                                            aria-selected="false" draggable="true" role="option" tabindex="0">
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate" title="Option 1">Option 1</span>
+                                                                </span>
+                                                        </div>
+                                                    </li>
+                                                    <li role="presentation" class="slds-listbox__item" onclick="selectFirstListItem(this)">
+                                                        <div class="first-list slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                                                            aria-selected="false" draggable="true" role="option" tabindex="-1">
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate" title="Option 2">Option 2</span>
+                                                                </span>
+                                                        </div>
+                                                    </li>
+                                                    <li role="presentation" class="slds-listbox__item" onclick="selectFirstListItem(this)">
+                                                        <div class="first-list slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                                                            aria-selected="false" draggable="true" role="option" tabindex="-1">
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate" title="Option 3">Option 3</span>
+                                                                </span>
+                                                        </div>
+                                                    </li>
+                                                    <li role="presentation" class="slds-listbox__item" onclick="selectFirstListItem(this)">
+                                                        <div class="first-list slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                                                            aria-selected="false" draggable="true" role="option" tabindex="-1">
+                                                            <span class="slds-media__body">
+                                                                <span class="slds-truncate" title="Option 6">Option 6</span>
+                                                            </span>
+                                                        </div>
+                                                    </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="slds-dueling-list__column">
+                                        <button class="slds-button slds-button_icon slds-button_icon-container" title="Move Selection to Second Category"
+                                            id="buttonRight" onClick="moveFromFirstToSecond();return false;">
+                                                <svg class="slds-button__icon" aria-hidden="true">
+                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS,'/assets/icons/utility-sprite/svg/symbols.svg#right')}"></use>
+                                                </svg>
+                                                <span class="slds-assistive-text">Move Selection to Second Category</span>
+                                        </button>
+                                        <button class="slds-button slds-button_icon slds-button_icon-container" title="Move Selection to First Category" id="buttonLeft">
+                                            <svg class="slds-button__icon" aria-hidden="true">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS,'/assets/icons/utility-sprite/svg/symbols.svg#left')}"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Move Selection to First Category</span>
+                                        </button>
+                                    </div>
+                                    <div class="slds-dueling-list__column">
+                                        <span class="slds-form-element__label" id="label-102">Second Category</span>
+                                        <div class="slds-dueling-list__options">
+                                            <ul aria-describedby="option-drag-label" aria-labelledby="label-102" aria-multiselectable="true"
+                                                class="slds-listbox slds-listbox_vertical" role="listbox">
+                                                    <li role="presentation" class="slds-listbox__item">
+                                                        <div class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                                                            aria-selected="false" draggable="true" role="option" tabindex="0">
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate" title="Option 4">Option 4</span>
+                                                                </span>
+                                                        </div>
+                                                    </li>
+                                                    <li role="presentation" class="slds-listbox__item">
+                                                        <div class="slds-listbox__option slds-listbox__option_plain slds-media slds-media_small slds-media_inline"
+                                                            aria-selected="false" draggable="true" role="option" tabindex="-1">
+                                                                <span class="slds-media__body">
+                                                                    <span class="slds-truncate" title="Option 5">Option 5</span>
+                                                                </span>
+                                                        </div>
+                                                    </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="slds-dueling-list__column">
+                                        <button class="slds-button slds-button_icon slds-button_icon-container" title="Move Selection Up" id="buttonUp">
+                                            <svg class="slds-button__icon" aria-hidden="true">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS,'/assets/icons/utility-sprite/svg/symbols.svg#up')}"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Move Selection Up</span>
+                                        </button>
+                                        <button class="slds-button slds-button_icon slds-button_icon-container" title="Move Selection Down0" id="buttonDown">
+                                            <svg class="slds-button__icon" aria-hidden="true">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS,'/assets/icons/utility-sprite/svg/symbols.svg#down')}"></use>
+                                            </svg>
+                                            <span class="slds-assistive-text">Move Selection Down</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-size_2-of-4">
+                    <div class="wizardsCol slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                        <button class="slds-button slds-button_brand" onClick="changePage('Page1','{!selectedParentObject}');return false;">Previous</button>
+                    </div>
+                </div>
+                <div class="slds-size_2-of-4">
+                    <div class="wizardsCol slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                        <button class="slds-button slds-button_brand" onClick="changePage('Page3');return false;">Next</button>
+                    </div>
+                </div>
+                <div class="slds-size_4-of-4">
+                    <div class="progressBar slds-box slds-box_x-small slds-text-align_center slds-m-around_x-small">
+                        <div class="slds-progress">
+                            <ol class="slds-progress__list">
+                                <li class="slds-progress__item slds-is-completed">
+                                    <button class="success-button slds-button slds-button_icon slds-button_icon slds-progress__marker slds-progress__marker_icon"
+                                        title="Step 1 - Completed">
+                                            <svg class="slds-button__icon" aria-hidden="true">
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{!URLFOR($Asset.SLDS,'/assets/icons/utility-sprite/svg/symbols.svg#success')}"></use> 
+                                            </svg>
+                                            <span class="slds-assistive-text">Step 1 - Completed</span>
+                                    </button>
+                                </li>
+                                <li class="slds-progress__item slds-is-active">
+                                    <button class="slds-button slds-progress__marker">
+                                        <span class="slds-assistive-text">Step 2 </span>
+                                    </button>
+                                </li>
+                                <li class="slds-progress__item">
+                                    <button class="slds-button slds-progress__marker">
+                                        <span class="slds-assistive-text">Step 3 </span>
+                                    </button>
+                                </li>
+                                <li class="slds-progress__item">
+                                    <button class="slds-button slds-progress__marker">
+                                        <span class="slds-assistive-text">Step 4 </span>
+                                    </button>
+                                </li>
+                            </ol>
+                            <div class="slds-progress-bar slds-progress-bar_x-small" aria-valuemin="0" aria-valuemax="100"
+                                aria-valuenow="33" role="progressbar">
+                                <span class="slds-progress-bar__value" style="width:33%">
+                                    <span class="slds-assistive-text">Progress: 33%</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </apex:outputPanel>
+        <apex:outputPanel rendered="{!IF(pageName=='Page3',true,false)}">
+            <div>hu</div>
+        </apex:outputPanel>
+    </apex:form>
+    <script>
+        var j$ = jQuery.noConflict();
+
+        function renderSVG() {
+            //var person = [];
+            //var SVG;
+            // SVGUse;
+            // SVGComplete;
+            var imageURL = new Array();
+            imageURL[0] = '{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#success')}';
+            imageURL[1] = '{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#right')}';
+            imageURL[2] = '{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#left')}';
+            imageURL[3] = '{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#up')}';
+            imageURL[4] = '{!URLFOR($Asset.SLDS, '/assets/icons/utility-sprite/svg/symbols.svg#down ')}';
+            for (i = 0; i < imageURL.length; i++) {
+                SVG = j$('<svg/>', {
+                    class: 'slds-button__icon',
+                });
+
+                SVGUse = j$('<use/>');
+                if (i == 0) {
+                    SVGUse.attr('xlink:href', imageURL[0]);
+                    SVGComplete = SVG.append(SVGUse);
+                    j$(".success-button").each(function() {
+                        j$(this).prepend(SVGComplete);
+                        j$(this).html(j$(this).html());
+                    });
+                } else if (i == 1) {
+                    SVGUse.attr('xlink:href', imageURL[1]);
+                    SVGComplete = SVG.append(SVGUse);
+                    j$("#buttonRight").each(function() {
+                        j$(this).prepend(SVGComplete);
+                        j$(this).html(j$(this).html());
+                    });
+                } else if(i==2){
+                    SVGUse.attr('xlink:href', imageURL[2]);
+                    SVGComplete = SVG.append(SVGUse);
+                    j$("#buttonLeft").each(function() {
+                        j$(this).prepend(SVGComplete);
+                        j$(this).html(j$(this).html());
+                    });
+    
+                } else if(i==3){
+                    SVGUse.attr('xlink:href', imageURL[3]);
+                    SVGComplete = SVG.append(SVGUse);
+                    j$("#buttonUp").each(function() {
+                        j$(this).prepend(SVGComplete);
+                        j$(this).html(j$(this).html());
+                    });
+    
+                }else if(i==4){
+                    SVGUse.attr('xlink:href', imageURL[4]);
+                    SVGComplete = SVG.append(SVGUse);
+                    j$("#buttonDown").each(function() {
+                        j$(this).prepend(SVGComplete);
+                        j$(this).html(j$(this).html());
+                    });
+    
+                }
+            }
+            //j$('#Icon').prepend(SVG.append(SVGUse));
+            //j$('#Icon' ).html(j$('#Icon').html());
+            j$('#selectObject').find('.selected').attr("selected", "selected");
+        }
+
+        function changePage(pageName, selectedObj = '0') {
+            var selectedObject;
+            console.log(selectedObj);
+            if (selectedObj == '0') {
+                selectedObject = j$("#selectObject option:selected").val();
+
+            } else {
+                selectedObject = selectedObj;
+            }
+            changeActionPage(pageName, selectedObject);
+            console.log(selectedObject);
+            //if(pageName='Page2'){
+            //if(selectedObject != 'NONE'){
+
+            //changeActionPage(pageName);
+            //}
+            //}
+        }
+        
+        function selectFirstListItem(obj) {
+            if((j$(obj).find('div').attr('aria-selected'))=='false'){
+                j$(obj).find('div').attr('aria-selected','true');    
+            }else{
+                j$(obj).find('div').attr('aria-selected','false');    
+            }
+        }
+        
+        function moveFromFirstToSecond(){
+            j$(".first-list").each(function(){
+                if(j$(this).attr('aria-selected')=='true'){
+                    
+                }    
+            });
+        }
+
+    </script>
+
+</apex:page>

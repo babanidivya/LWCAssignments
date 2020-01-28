@@ -1,0 +1,36 @@
+<apex:page controller="ActionDemoController">
+    <apex:form id="frm" rendered="true">
+        <apex:actionFunction action="{!changeValues}" name="callChangeValue" reRender="frm" status="status">
+            <apex:param assignTo="{!Var6}" name="var61" value=""/>
+        </apex:actionFunction>
+        <apex:actionStatus id="status">
+        <apex:facet name="start">
+            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.75; z-index: 1000; background-color: black;">
+                &nbsp;
+            </div>
+            <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 30% 50%">
+                <img src="http://upload.wikimedia.org/wikipedia/commons/e/ed/Cursor_Windows_Vista.gif" />
+            </div>
+            </apex:facet>
+        </apex:actionStatus>
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                {!var1}<br/>
+                {!var2}<br/>
+                {!var3}<br/>
+                <apex:inputText value="{!var4}"/>
+                {!Var5}
+                {!Var6}
+            </apex:pageBlockSection>
+            <apex:commandButton action="{!changeValues}" value="Change Values"/>
+            <apex:commandButton onclick="callChangeValue('test 1'); return false;" value="Change Values 2"/>
+        </apex:pageBlock>
+        {!var1}
+        {!schools}
+    </apex:form>
+    <script>
+        function fun1(){
+            callChangeValue('s');
+        }
+    </Script>
+</apex:page>

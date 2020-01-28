@@ -1,0 +1,26 @@
+<apex:component controller="FieldSetController">
+    <apex:attribute name="sectionTitle" type="String" access="public" required="true" description="Section title"/>
+    <apex:attribute name="fieldSetName" type="String" access="public" required="true" description="Field Set Name"/>
+    <apex:attribute name="acc" type="Account" access="public" required="true" description="Account"/>
+    <fieldset class="acpi-fieldset">
+        <legend class="ncob-legend">{!sectionTitle}</legend>
+        <div class="row">
+            <apex:repeat value="{!FieldSetMap[fieldSetName].Fields}" var="field">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        
+                        <label for="{!field.FieldPath}">
+                            {!field.Label}
+                            <apex:outputPanel rendered="{!field.required}">
+                                <span>*</span>
+                            </apex:outputPanel>
+                        </label>
+                        <apex:inputField Value="{!acc[field.FieldPath]}" styleclass="form-control"/>
+                        
+                    </div>
+                </div>
+            </apex:repeat>
+        </div>
+        
+    </fieldset>
+</apex:component>

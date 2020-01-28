@@ -1,0 +1,6 @@
+<apex:page showHeader="false">
+    
+    <p>
+        This is demo page
+    </p>
+</apex:page>

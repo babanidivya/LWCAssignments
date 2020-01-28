@@ -1,0 +1,47 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "c/helloworld": [
+                "helloworld/helloworld.js"
+            ],
+            "c/lwcContactsManagementScreen": [
+                "lwcContactsManagementScreen/lwcContactsManagementScreen.js"
+            ],
+            "c/lwcCustomChatBot": [
+                "lwcCustomChatBot/lwcCustomChatBot.js"
+            ],
+            "c/lwcCustomTable": [
+                "lwcCustomTable/lwcCustomTable.js"
+            ],
+            "c/lwcCustomTableWrapper": [
+                "lwcCustomTableWrapper/lwcCustomTableWrapper.js"
+            ],
+            "c/lwcDatatable": [
+                "lwcDatatable/lwcDatatable.js"
+            ],
+            "c/lwcDatatablePagination": [
+                "lwcDatatablePagination/lwcDatatablePagination.js"
+            ],
+            "c/lwcPaginatorBottom": [
+                "lwcPaginatorBottom/lwcPaginatorBottom.js"
+            ],
+            "c/lwcRecordSearchList": [
+                "lwcRecordSearchList/lwcRecordSearchList.js"
+            ],
+            "c/lwcRecordSearchListClone": [
+                "lwcRecordSearchListClone/lwcRecordSearchListClone.js"
+            ]
+        },
+        "experimentalDecorators": true
+    },
+    "include": [
+        "**/*",
+        "../../../../.sfdx/typings/lwc/**/*.d.ts"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jest"
+        ]
+    }
+}

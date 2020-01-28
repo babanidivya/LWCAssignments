@@ -1,0 +1,3 @@
+<apex:page title="DisplayUserInfo">
+  {! $user.firstname}
+</apex:page>

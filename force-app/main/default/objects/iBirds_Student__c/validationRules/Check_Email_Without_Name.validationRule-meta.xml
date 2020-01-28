@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Email_Without_Name</fullName>
+    <active>true</active>
+    <errorConditionFormula>IF(Student_Mail_Id__c  &lt;&gt; &quot;&quot;, Student_Name__c == &quot;&quot;,false)</errorConditionFormula>
+    <errorDisplayField>Student_Name__c</errorDisplayField>
+    <errorMessage>Email cant send without name</errorMessage>
+</ValidationRule>

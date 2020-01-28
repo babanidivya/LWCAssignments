@@ -1,0 +1,35 @@
+/**
+* @author Divya Babani
+* @date 26 Jan 2020
+*
+* 
+*
+* @description
+*/
+.parent-div{
+    margin-left: 50px;
+    margin-right: 50px;
+ }
+ .user-img{
+    width: 52px;
+    border-radius: 30px;
+ }
+ .user-name{
+    font-size: large;
+ }
+ .user-emial{
+     font-size: small;
+ }
+ .user-div{
+    border-bottom: #e2e1e1 1px solid;
+    padding-bottom: 6px;
+    padding-top: 6px;
+ }
+ .card-header-badge{
+    background-color: #a7a2a2;
+    color: white;
+    border-radius: 1px;
+    padding-right: 38px;
+    font-size: inherit;
+    font-weight: 100;
+ }

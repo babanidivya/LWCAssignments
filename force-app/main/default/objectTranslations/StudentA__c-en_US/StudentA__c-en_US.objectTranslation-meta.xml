@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>StudentA</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>StudentAs</value>
+    </caseValues>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Email cannot be without contains Email Name --></errorMessage>
+        <name>email_name_comb</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Partner Name can not be blank in case of isMarried --></errorMessage>
+        <name>partner_name_blank</name>
+    </validationRules>
+</CustomObjectTranslation>

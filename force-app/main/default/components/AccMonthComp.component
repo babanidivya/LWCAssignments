@@ -1,0 +1,11 @@
+<apex:component controller="accMonthCtrl" access="global">
+  <!-- Begin Default Content REMOVE THIS -->
+  
+  <apex:attribute name="acId" assignTo="{!accId}" type="Id" description="Account ID" />
+   
+  <apex:attribute name="acId1" assignTo="{!accIdd}" type="Id" description="Account ID" />
+   {!Month}
+    
+
+  <!-- End Default Content REMOVE THIS -->
+</apex:component>

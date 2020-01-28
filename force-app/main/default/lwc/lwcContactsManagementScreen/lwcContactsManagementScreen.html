@@ -1,0 +1,21 @@
+<template>
+    <lightning-card>
+        <div class="row parent-div">
+            <lightning-badge class="card-header-badge" label="Contact Management Screen"></lightning-badge>
+            <lightning-input onchange={handleKeyChange} type="search" class="slds-m-bottom_small" placeholder="Search Contacts..."  
+          value={searchKey}></lightning-input> 
+            <div class="slds-m-around_medium">
+                <div class="slds-grid slds-wrap user-div" for:each={userListToShow} for:item="userItem" key={userItem.id}>
+                    <div class="slds-col slds-size_1-of-12">
+                        <img class="user-img" src={userItem.SmallPhotoUrl}></img>
+                    </div>
+                    <div class="slds-col slds-size_8-of-12">
+                        <div class="user-name">{userItem.Name}</div>
+                        <div class="user-email">{userItem.Email}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </lightning-card>
+</template>

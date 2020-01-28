@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Email</fullName>
+    <active>true</active>
+    <description>Require error</description>
+    <errorConditionFormula>Student_Email__c == &quot;&quot;</errorConditionFormula>
+    <errorDisplayField>Student_Email__c</errorDisplayField>
+    <errorMessage>This field necessary</errorMessage>
+</ValidationRule>

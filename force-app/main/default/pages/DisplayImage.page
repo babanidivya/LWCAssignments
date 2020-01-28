@@ -1,0 +1,5 @@
+<apex:page title="DisplayImage" showHeader="false">
+  <!-- Begin Default Content REMOVE THIS -->
+  <apex:image id="firstTestImage" url="https://developer.salesforce.com/files/salesforce-developer-network-logo.png"/>
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

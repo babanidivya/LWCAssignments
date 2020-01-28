@@ -1,0 +1,23 @@
+<template>
+    <lightning-card>
+        <c-lwc-custom-chat-bot></c-lwc-custom-chat-bot>
+        <c-lwc-custom-table-wrapper currentpage={page} onrecordsload={handleRecordsLoad} pagesize={pagesize}></c-lwc-custom-table-wrapper>
+        <div class="slds-m-around_medium">  
+            <c-lwc-paginator-bottom onprevious={handlePrevious} onnext={handleNext} onfirst={handleFirst}  
+              onlast={handleLast} currentpage={page} totalrecords={totalrecords} pagesize={pagesize}>  
+            </c-lwc-paginator-bottom>  
+        </div>  
+        <c-lwc-custom-table currentpage={page} onrecordsload={handleRecordsLoad} pagesize={pagesize}></c-lwc-custom-table>
+        <div class="slds-m-around_medium">  
+            <c-lwc-paginator-bottom onprevious={handlePrevious} onnext={handleNext} onfirst={handleFirst}  
+              onlast={handleLast} currentpage={page} totalrecords={totalrecords} pagesize={pagesize}>  
+            </c-lwc-paginator-bottom>  
+        </div>
+        <c-lwc-record-search-list currentpage={page} onrecordsload={handleRecordsLoad} pagesize={pagesize}></c-lwc-record-search-list>   
+        <div class="slds-m-around_medium">  
+                <c-lwc-paginator-bottom onprevious={handlePrevious} onnext={handleNext} onfirst={handleFirst}  
+                  onlast={handleLast} currentpage={page} totalrecords={totalrecords} pagesize={pagesize}>  
+                </c-lwc-paginator-bottom>  
+        </div>
+    </lightning-card> 
+</template>

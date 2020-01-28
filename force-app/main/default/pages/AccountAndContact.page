@@ -1,0 +1,130 @@
+<apex:page controller="AccountAndContactController" sidebar="false" showHeader="false" standardStylesheets="false">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+  <script> 
+      $j = jQuery.noConflict(); 
+      function applyActiveClass(id){ 
+          $j(".active").removeClass("active"); 
+          $j("#"+id).addClass("active"); } 
+  </script>
+  <!-- ================== Navbar ========================= -->
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+        
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        
+      </div>
+    </nav>
+    <!-- ================== Navbar ========================= -->
+    <apex:form >
+        <apex:variable value="0" var="tabData"/>
+        <apex:variable value="0" var="tabAnchor"/>
+        <div class="container">
+            <h4>Account Detail</h4>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputEmail4">Name</label>
+                  <apex:inputField styleclass="form-control" value="{!account.name}"/>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputEmail4">Phone</label>
+                  <apex:inputField styleclass="form-control" value="{!account.phone}"/>
+                </div>
+            </div>
+            
+            <!-- ================== Tabs ======================= -->
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <apex:repeat value="{!account.Contacts}" var="obj">
+                    <a class="nav-item nav-link {!IF( tabAnchor= '0' ,'active','')}" id="nav-{!obj.id}-tab" data-toggle="tab" href="#tabs-{!obj.id}" role="tab" aria-controls="tabs-{!obj.id}" aria-selected="true" onclick="applyActiveClass('nav-{!obj.id}-tab')">{!obj.name}</a>
+                     <apex:variable value="{!tabAnchor}+1" var="tabAnchor"/>                      
+                </apex:repeat>  
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <apex:repeat id="repId" value="{!account.Contacts}" var="obj" >                      
+                    <div id="tabs-{!obj.id}" role="tabpanel" aria-labelledby="nav-{!obj.id}-tab" class="tab-pane fade show {!IF( tabData = '0' ,'active','')}">                        
+                        <apex:variable value="{!tabData}+1" var="tabData"/>
+                             <div class="container">
+                                 <div class="form-row">
+                                     <div class="form-group col-md-4">
+                                         <label for="inputEmail4">Name</label>
+                                         <apex:inputField styleclass="form-control" value="{!obj.name}"/>
+                                     </div>
+                                     <div class="form-group col-md-4">
+                                     </div>
+                                     <div class="form-group col-md-4">
+                                         <label for="inputEmail4">Phone</label>
+                                         <apex:inputField styleclass="form-control" value="{!obj.Phone__c}"/>
+                                     </div>
+                                 </div>
+                                 <div class="form-row">
+                                     <div class="form-group col-md-4">
+                                         <label for="inputEmail4">Designation</label>
+                                         <apex:inputField styleclass="form-control" value="{!obj.Designation__c}"/>
+                                     </div>
+                                     <div class="form-group col-md-4">
+                                     </div>
+                                     <div class="form-group col-md-4">
+                                         <label for="inputEmail4">Favourite Game</label>
+                                         <apex:inputField styleclass="form-control" value="{!obj.FavGame__c}"/>
+                                     </div>
+                                 </div>
+                                 <div class="form-row">
+                                     <div class="form-group col-md-4">
+                                         <label for="inputEmail4">Date of Birth</label>
+                                         <!--<apex:inputText styleclass="form-control" value="{!obj.BirthDate__c}"/>-->
+                                     </div>
+                                     <div class="form-group col-md-4">
+                                     </div>
+                                     <div class="form-group col-md-4">
+                                         <label for="inputEmail4">Age</label>
+                                         <apex:inputText styleclass="form-control" value="{!obj.Age__c}"/>
+                                     </div>
+                                 </div>
+                            </div>  
+                    </div>    
+               </apex:repeat>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                </div>
+                <div class="form-group col-md-5">
+                    <apex:commandButton action="{!saveAccount}" value="Save" styleClass="btn btn-primary"/>
+                    <apex:commandButton action="{!cancel}" value="Cancel" styleClass="btn btn-dark" immediate="true"/>
+                </div>
+                
+            </div>
+        </div>
+    </apex:form>  
+</apex:page>

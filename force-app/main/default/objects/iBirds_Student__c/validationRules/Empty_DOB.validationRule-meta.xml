@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Empty_DOB</fullName>
+    <active>true</active>
+    <description>Date of Birth of student should not be empty</description>
+    <errorConditionFormula>TEXT(Student_DOB__c) == &quot;&quot;</errorConditionFormula>
+    <errorDisplayField>Student_DOB__c</errorDisplayField>
+    <errorMessage>Date Of Birth can not be empty</errorMessage>
+</ValidationRule>

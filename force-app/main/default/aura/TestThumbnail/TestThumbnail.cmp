@@ -1,0 +1,17 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+	<aura:attribute name="title" type="String" default="title"/>
+	<aura:attribute name="url" type="String" />
+    <aura:attribute name="urlValid" type="Boolean" />
+    <aura:attribute name="errorMessage" type="String" />
+    <aura:attribute name="errorType" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    ijhkjh lkoppoldtdt,klop
+    <img src="" aura:id="inputImage"/>
+    <aura:if isTrue="{!!v.urlValid}">
+        <!-- Show the message to ui -->
+        <div class="{!'slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_'+v.errorType}" role="alert">
+            <span class="slds-assistive-text">error</span>
+            <h2>{!v.errorMessage}</h2>
+        </div>
+    </aura:if>
+</aura:component>

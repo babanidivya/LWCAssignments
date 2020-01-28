@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>d</fullName>
+        <field>Date_of_Admission__c</field>
+        <formula>today()</formula>
+        <name>d</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>dateofadmissionupdate</fullName>
+        <field>Date_of_Admission__c</field>
+        <formula>today()</formula>
+        <name>dateofadmissionupdate</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Formula</operation>
+        <protected>false</protected>
+    </fieldUpdates>
+    <rules>
+        <fullName>dateofadmission</fullName>
+        <actions>
+            <name>dateofadmissionupdate</name>
+            <type>FieldUpdate</type>
+        </actions>
+        <active>true</active>
+        <description>assigning current date in date of admission if it is greater or less then today</description>
+        <formula>AND(NOT(ISNULL(Date_of_Admission__c)),Date_of_Admission__c&lt;&gt;Today())</formula>
+        <triggerType>onCreateOnly</triggerType>
+    </rules>
+</Workflow>

@@ -1,0 +1,23 @@
+<apex:page standardController="Account" recordSetVar="Accounts" extensions="StandardSetControllerDemo">
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!accountList}" var="acc">
+            <apex:column value="{!acc.Id}"/>
+            <apex:repeat value="{!fields}" var="field"> 
+                {!field.Field_API_Name__c}
+                <apex:column value="{!acc[field.Field_API_Name__c]}" />
+            </apex:repeat>
+        </apex:pageBlockTable>
+        
+        <apex:dataTable value="{!accountList}" var="acc">
+            <apex:repeat value="{!fields}" var="field"> 
+                <apex:column value="{!acc[field.Field_API_Name__c]}" />
+            </apex:repeat>
+        </apex:dataTable>
+        
+        <apex:dataList value="{!accountList}" var="acc">
+            <apex:repeat value="{!fields}" var="field"> 
+                {!acc[field.Field_API_Name__c]}
+            </apex:repeat>
+        </apex:dataList>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- FavGame --></label>
+    <name>FavGame__c</name>
+    <picklistValues>
+        <masterLabel>Badminton</masterLabel>
+        <translation><!-- Badminton --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Basketball</masterLabel>
+        <translation><!-- Basketball --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Carrom</masterLabel>
+        <translation><!-- Carrom --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Chess</masterLabel>
+        <translation><!-- Chess --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Footbal</masterLabel>
+        <translation><!-- Footbal --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Ludo</masterLabel>
+        <translation><!-- Ludo --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Voleyball</masterLabel>
+        <translation><!-- Voleyball --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

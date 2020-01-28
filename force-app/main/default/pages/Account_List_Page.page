@@ -1,0 +1,177 @@
+<apex:page showHeader="false" controller="AccountListController">
+    
+    <apex:includeScript value="{!$Resource.jquery}"  />
+    <apex:includescript value="//code.jquery.com/jquery-1.11.1.min.js" / >
+        <apex:includescript value="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" />
+        <apex:stylesheet value="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css" />
+    <apex:form >
+    <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="save" action="{!save}"/>
+            </apex:pageBlockButtons>
+            <apex:variable var="name" value="Name" />
+
+            <apex:slds >
+                <table id="accounttable" class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+                  <thead>
+                    <tr class="slds-text-title_caps">
+                      <th scope="col">
+                        <div class="slds-truncate" title="Account ID">ID</div>
+                      </th>
+                      <th scope="col">
+                        <div class="slds-truncate" title="Account Name">Name</div>
+                      </th>
+                      <th scope="col">
+                        <div class="slds-truncate" title="Account Phone">Phone</div>
+                      </th>
+                      <th scope="col">
+                        <div class="slds-truncate" title="Account AnnualRevenue">Annual Revenue</div>
+                      </th>
+                      <th scope="col">
+                        <div class="slds-truncate" title="Account Employees">No of Employees</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <apex:repeat value="{!acc_list}" var="acc">
+                          <tr>
+                               
+                               <th scope="row" data-label="Account ID">
+                                <div class="slds-truncate"><apex:outputText value="{!acc.id}"/></div>
+                                  </th>
+                              <th aria-selected="true" scope="col" data-label="Account Name" class="slds-cell-edit cell-name" role="gridcell" ondblclick="displaySection('{!acc.id}-Name')">
+                                <span class="slds-grid slds-grid_align-spread">
+                                    <span id="{!acc.id}-showName"  class="slds-truncate"><apex:outputText styleClass="custom-name" id="OutputMYField" value="{!acc.Name}" /></span>
+                                </span>
+                                <section id="{!acc.id}-Name" onmouseout="hideSection('{!acc.id}-Name')" class="slds-popover slds-popover_edit" role="dialog" style="display:none; position: absolute; top: 0px; left: 0.0625rem;">
+                                    <span tabindex="0"></span>
+                                    <div class="slds-popover__body">
+                                      <div class="slds-form-element slds-grid slds-wrap">
+                                        <label class="slds-form-element__label slds-form-element__label_edit slds-no-flex" for="company-01">
+                                          <span class="slds-assistive-text">Company</span>
+                                        </label>
+                                        <div class="slds-form-element__control slds-grow">
+                                          <apex:inputField value="{!acc.name}"  styleClass="slds-input custom-class" />
+                                        </div>
+                                      </div>
+                                    </div>
+                                 </section>
+                                
+                              </th>
+                              <th scope="row" data-label="Account Phone" ondblclick="displaySection('{!acc.id}-phone')">
+                                <span  class="slds-grid slds-grid_align-spread">
+                                    <span id="{!acc.id}-showPhone"  class="slds-truncate"><apex:outputText styleClass="custom-name" id="OutputPhone" value="{!acc.phone}" /></span>
+                                </span>
+                                <section id="{!acc.id}-phone" onmouseout="hideSection('{!acc.id}-phone')" class="slds-popover slds-popover_edit" role="dialog" style="display:none; position: absolute; top: 0px; left: 0.0625rem;">
+                                    <span tabindex="0"></span>
+                                    <div class="slds-popover__body">
+                                      <div class="slds-form-element slds-grid slds-wrap">
+                                        <label class="slds-form-element__label slds-form-element__label_edit slds-no-flex" for="company-01">
+                                          <span class="slds-assistive-text">Company</span>
+                                        </label>
+                                        <div class="slds-form-element__control slds-grow">
+                                          <apex:inputField value="{!acc.phone}"  styleClass="slds-input custom-class" />
+                                        </div>
+                                      </div>
+                                    </div>
+                                 </section>
+                                
+                              </th>
+                              <th scope="row" data-label="Account AnnualRevenue" ondblclick="displaySection('{!acc.id}-ar')">
+                                <span class="slds-grid slds-grid_align-spread">
+                                    <span id="{!acc.id}-showAR"  class="slds-truncate"><apex:outputText styleClass="custom-name" id="OutputAR" value="{!acc.annualrevenue}" /></span>
+                                </span>
+                                <section id="{!acc.id}-ar" onmouseout="hideSection('{!acc.id}-ar')" class="slds-popover slds-popover_edit" role="dialog" style="display:none; position: absolute; top: 0px; left: 0.0625rem;">
+                                    <span tabindex="0"></span>
+                                    <div class="slds-popover__body">
+                                      <div class="slds-form-element slds-grid slds-wrap">
+                                        <label class="slds-form-element__label slds-form-element__label_edit slds-no-flex" for="company-01">
+                                          <span class="slds-assistive-text">Company</span>
+                                        </label>
+                                        <div class="slds-form-element__control slds-grow">
+                                          <apex:inputField value="{!acc.annualrevenue}"  styleClass="slds-input custom-class" />
+                                        </div>
+                                      </div>
+                                    </div>
+                                 </section>
+                                
+                              </th>
+                              <th scope="row" data-label="Account Employees" ondblclick="displaySection('{!acc.id}-emp')">
+                                <span class="slds-grid slds-grid_align-spread">
+                                    <span id="{!acc.id}-showEmp"  class="slds-truncate"><apex:outputText styleClass="custom-name" id="OutputEmp" value="{!acc.numberofemployees}" /></span>
+                                </span>
+                                <section id="{!acc.id}-emp" onmouseout="hideSection('{!acc.id}-emp')" class="slds-popover slds-popover_edit" role="dialog" style="display:none; position: absolute; top: 0px; left: 0.0625rem;">
+                                    <span tabindex="0"></span>
+                                    <div class="slds-popover__body">
+                                      <div class="slds-form-element slds-grid slds-wrap">
+                                        <label class="slds-form-element__label slds-form-element__label_edit slds-no-flex" for="company-01">
+                                          <span class="slds-assistive-text">Company</span>
+                                        </label>
+                                        <div class="slds-form-element__control slds-grow">
+                                          <apex:inputField value="{!acc.numberofemployees}"  styleClass="slds-input custom-class" />
+                                        </div>
+                                      </div>
+                                    </div>
+                                 </section>
+                                
+                              </th> 
+                          </tr>
+                      </apex:repeat>
+                  </tbody>
+                </table>
+            </apex:slds>
+        
+    </apex:pageBlock>
+    </apex:form> 
+    <script type="text/javascript">
+        var sid;
+        $(document).ready(function(){
+            
+            
+        });
+        var j$ = $.noConflict();
+         j$(document).ready(function(){
+             j$(".custom-class").change(function(){
+                
+                (j$(this).closest("th").find("[class^=custom-name]").text(j$(this).val()));
+                
+                
+                
+            });
+            var accountTable = j$('[id$="accounttable"]').DataTable({
+                bFilter: false, 
+                bInfo: false,
+                bLengthChange: false
+                      
+            });
+             
+        });   
+        function displaySection(sectionID){
+              
+             var x = document.getElementById(sectionID);   // Get the element with id="demo"
+            document.getElementById(sectionID).style.display = "block";
+            sid= sectionID;
+            
+        }
+        
+        function hideSection(sectionID){
+           
+         if(document.getElementById(sectionID).style.display == 'block'){
+                document.getElementById(sectionID).style.display = 'none';    
+            }
+        }
+        
+        function changeValue(inputFieldId){
+
+           var val = document.getElementById(inputFieldId).value;
+           document.getElementById(sid).value= val;
+            
+
+        }
+
+
+            
+
+    </script>
+ 
+</apex:page>
